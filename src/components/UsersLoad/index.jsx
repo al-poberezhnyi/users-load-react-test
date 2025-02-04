@@ -9,6 +9,8 @@ class UsersLoad extends Component {
             users: [],
             errors: null,
             isFatching: false,
+            page: 1,
+            results: 10,
         };
     }
     componentDidMount () {
@@ -16,9 +18,10 @@ class UsersLoad extends Component {
     }
     //
     loadData = () => {
+        const { page, results } = this.state;
         this.setState({ isFatching: true });
 
-        loadUsers()
+        loadUsers(page, results)
             .then(({ results }) => this.setState({ users: results }))
             .catch(error => this.setState({ errors: error }))
             .finally(() => {
@@ -36,7 +39,7 @@ class UsersLoad extends Component {
 
                 <ul>
                     {users.map(u => (
-                        <li key={u.id.value}>{JSON.stringify(u)}</li>
+                        <li key={u.login.uuid}>{JSON.stringify(u)}</li>
                     ))}
                 </ul>
             </>
