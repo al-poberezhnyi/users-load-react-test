@@ -1,7 +1,9 @@
+import UsersLoad from './components/UsersLoad';
+
 function App () {
     return (
         <>
-            <div></div>
+            <UsersLoad />
         </>
     );
 }
