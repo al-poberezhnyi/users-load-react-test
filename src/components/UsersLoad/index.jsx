@@ -10,16 +10,21 @@ class UsersLoad extends Component {
             errors: null,
             isFatching: false,
             page: window.localStorage.getItem('page') || 1,
-            results: 12,
+            results: window.localStorage.getItem('results') || 2,
+            input: '',
         };
     }
     componentDidMount () {
         this.loadData();
     }
     componentDidUpdate (prevProps, prevState) {
-        const { page } = this.state;
+        const { page, results } = this.state;
         if (prevState.page !== page) {
             window.localStorage.setItem('page', page);
+            this.loadData();
+        }
+        if (prevState.results !== results) {
+            window.localStorage.setItem('results', results);
             this.loadData();
         }
     }
@@ -44,10 +49,23 @@ class UsersLoad extends Component {
         const { page } = this.state;
         this.setState({ page: page + 1 });
     };
+    handleOnSubmit = e => {
+        e.preventDefault();
+        const { value } = e.target[0];
+        this.setState({ results: Number(value) });
+        this.setState({ input: '' });
+    };
+    handleOnChange = ({ target: { value } }) => {
+        this.setState({ input: value });
+    };
+
+    mapUser = u => {
+        return <UserItem />;
+    };
 
     //
     render () {
-        const { users, isFatching, errors } = this.state;
+        const { users, isFatching, errors, input } = this.state;
         return (
             <>
                 {isFatching && <div>plese, low 3G!!!!</div>}
@@ -56,12 +74,22 @@ class UsersLoad extends Component {
                     <button onClick={this.prevPage}>prev page</button>
                     <button onClick={this.nextPage}>next page</button>
                 </div>
+                <form onSubmit={this.handleOnSubmit}>
+                    <input
+                        type='number'
+                        name='results'
+                        value={input}
+                        onChange={this.handleOnChange}
+                    />
+                    <button type='submit'>SUBMIT</button>
+                </form>
 
                 <ul>
                     {users.map(u => (
                         <li key={u.login.uuid}>{JSON.stringify(u)}</li>
                     ))}
                 </ul>
+                {/* <ul>{users.map(this.mapUser)}</ul> */}
             </>
         );
     }
