@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import loadUsers from '../../api';
+import UserItem from './UserItem';
+
+import styles from './UsersLoad.module.scss';
 
 class UsersLoad extends Component {
     constructor (props) {
@@ -59,10 +62,7 @@ class UsersLoad extends Component {
         this.setState({ input: value });
     };
 
-    mapUser = u => {
-        return <UserItem />;
-    };
-
+    mapUser = u => <UserItem key={u.login.uuid} user={u} />;
     //
     render () {
         const { users, isFatching, errors, input } = this.state;
@@ -84,12 +84,7 @@ class UsersLoad extends Component {
                     <button type='submit'>SUBMIT</button>
                 </form>
 
-                <ul>
-                    {users.map(u => (
-                        <li key={u.login.uuid}>{JSON.stringify(u)}</li>
-                    ))}
-                </ul>
-                {/* <ul>{users.map(this.mapUser)}</ul> */}
+                <ul>{users.map(this.mapUser)}</ul>
             </>
         );
     }
