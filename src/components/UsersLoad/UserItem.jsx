@@ -6,9 +6,10 @@ import { RiYoutubeFill } from '@remixicon/react';
 import { RiAddCircleFill } from '@remixicon/react';
 import { RiDeleteBin2Fill } from '@remixicon/react';
 import { RiMapPinFill } from '@remixicon/react';
+import { format } from 'date-fns';
+import classNames from 'classnames';
 
 import styles from './UsersLoad.module.scss';
-import { format } from 'date-fns';
 
 function UserItem (props) {
     const {
@@ -22,13 +23,16 @@ function UserItem (props) {
             dob: { age, date: dateOfB },
         },
     } = props;
+    const wrapper = classNames(styles.wrapperContainer, {
+        [styles.wrapperMale]: gender === 'male',
+        [styles.wrapperFemale]: gender === 'female',
+    });
 
     return (
-        <li className={styles.wrapperContainer}>
+        <li className={wrapper}>
             <div className={styles.innerContainer}>
                 <div className={styles.userContainer}>
                     <div className={styles.infoContainer}>
-                        {/*  */}
                         <div className={styles.imgContainer}>
                             <img src={src} alt={`${firstName} ${lastName}`} />
                         </div>

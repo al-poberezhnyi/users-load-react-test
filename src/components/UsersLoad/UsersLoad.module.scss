@@ -6,7 +6,6 @@
     font-family: 'Ubuntu', serif;
     color: #ffffff;
 
-    background-image: url('./../../../public/bg-card.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -16,6 +15,12 @@
     height: 475px;
     box-shadow: 0 0 5px 0.8px #979696;
     margin: 20px;
+}
+.wrapperMale {
+    background-image: url('./../../../public/bg-male.jpg');
+}
+.wrapperFemale {
+    background-image: url('./../../../public/bg-female.jpg');
 }
 
 .innerContainer {
