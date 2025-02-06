@@ -1,0 +1,11 @@
+@mixin df {
+    display: flex;
+}
+%dfRow {
+    display: flex;
+}
+%dfColumn {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+}
